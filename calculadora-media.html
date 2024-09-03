@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Média</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="img/imgfundo.png">
+    <style>
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: url('img/imgfundo.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            font-family: 'Arial', sans-serif;
+        }
+
+        #calc {
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+            background: #1e2a47;
+            border-radius: 20px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            width: 100%;
+            max-width: 450px;
+            padding: 15px;
+            color: #fff;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        #header {
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+            margin-bottom: 20px;
+        }
+
+        #header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        #mediaselect {
+            margin-bottom: 20px;
+        }
+
+        #mediaselect span {
+            display: block;
+            margin-bottom: 10px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        #mediaselect input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            color: #333;
+            background: #fff;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        #mediaalta {
+            color: #ff4d4d;
+            margin-top: 10px;
+            font-size: 14px;
+            visibility: hidden;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+        }
+        
+        #quantidadeNotas {
+            width: 100%;
+            padding: 5px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            color: #333;
+            background: #fff;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        #quantidadeNotas span {
+            width: 100%;
+            padding: 0px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            color: #333;
+            background: #fff;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .input-group {
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .input-group span {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 16px;
+            text-align: left;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            color: #333;
+            background: #fff;
+            box-sizing: border-box;
+        }
+
+        #calcular {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 100px;
+            font-size: 18px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        #calcular:hover {
+            background-color: #00c6ff;
+        }
+
+        #resultado {
+            background: #fff;
+            color: #333;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 18px;
+            text-align: center;
+            visibility: hidden;
+        }
+
+        #resultado.visible {
+            visibility: visible;
+        }
+
+        #btn-back {
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 100px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 1rem;
+        }
+
+        #btn-back:hover {
+            background-color: #00c6ff;
+        }
+
+        #btn-back-fixed {
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+            position: fixed;
+            bottom: 77px;
+            left: 48%;
+            transform: translateX(-50%);
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 100px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        #btn-back-fixed:hover {
+            background-color: #00c6ff;
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+    <div id="calc">
+        <div id="header">
+            <h1>Calculadora de Média</h1>
+        </div>
+        <div id="mediaselect">
+            <span>Média necessária para ser aprovada(o)</span>
+            <input type="number" max="10" min="0" step=".01" name="mediafinal" id="mediafinal" value="6">
+            <div id="mediaalta">Média muito alta!</div>
+            <div class="quantidadeNotas">
+                <span>Quantidade de notas</span>
+                <input type="number" min="1" id="quantidadeNotas" value="4" onchange="gerarCamposNotas();">
+                <br><br>
+            </div>
+        </div>
+        <form onsubmit="calcularMedia(); return false;">
+            <div class="input-group">
+                <span>Nome da(o) aluna(o):</span>
+                <input type="text" name="name" id="name" required>
+            </div>
+            <div id="notas">
+                <!-- As notas serão inseridas dinamicamente -->
+            </div>
+            <br>
+            <input type="submit" id="calcular" value="Calcular média">
+        </form>
+        <div id="resultado"></div>
+        <input type="button" id="btn-back" value="Voltar" onclick="window.location.href='index.html';">
+    </div>
+
+    <script>
+        // Função para gerar os campos de notas dinamicamente
+        function gerarCamposNotas() {
+            const quantidade = parseInt(document.getElementById('quantidadeNotas').value);
+            const notasDiv = document.getElementById('notas');
+            notasDiv.innerHTML = ''; // Limpa os campos anteriores
+
+            for (let i = 1; i <= quantidade; i++) {
+                const inputGroup = document.createElement('div');
+                inputGroup.className = 'input-group';
+                inputGroup.innerHTML = `
+                    <span>${i}ª Nota:</span>
+                    <input type="number" max="10" min="0" step=".01" name="nota${i}" id="nota${i}" placeholder="Digite a nota ${i}" required>
+                `;
+                notasDiv.appendChild(inputGroup);
+            }
+        }
+
+        // Gerar campos iniciais com base no valor padrão
+        gerarCamposNotas();
+
+        function calcularMedia() {
+            const quantidade = parseInt(document.getElementById('quantidadeNotas').value);
+            let soma = 0;
+
+            for (let i = 1; i <= quantidade; i++) {
+                const nota = parseFloat(document.getElementById(`nota${i}`).value);
+                soma += nota;
+            }
+
+            const mediaFinal = parseFloat(document.getElementById('mediafinal').value);
+            const media = soma / quantidade;
+
+            const resultadoDiv = document.getElementById('resultado');
+            const mediaAltaDiv = document.getElementById('mediaalta');
+
+            resultadoDiv.textContent = `A média do aluno é ${media.toFixed(2)}.`;
+
+            if (media < mediaFinal) {
+                mediaAltaDiv.style.visibility = 'visible';
+            } else {
+                mediaAltaDiv.style.visibility = 'hidden';
+            }
+            resultadoDiv.style.visibility = 'visible';
+        }
+    </script>
+</body>
+
+</html>

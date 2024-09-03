@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Normal</title>
+    <link rel="stylesheet" href="img/imgfundo.png">
+    <style>
+        @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                }
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: url('img/imgfundo.png');
+            background-size: cover; /* Faz com que a imagem cubra toda a tela */
+            background-position: center center; /* Centraliza a imagem */
+            background-repeat: no-repeat; /* Tira a repetição da imagem */
+            background-attachment: fixed; /* Para imagem de fundo ficar fixa na rolagem da página */
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            opacity: 0; /* Iniciar invisível */
+            animation: fadeIn 1s ease-out forwards; /* Aplicar a animação de fade */
+            text-align: center;
+            padding: 60px;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .page-title {
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 0.1s;
+            color: #ffffff;
+            margin: 0 0 10px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .calculadora {
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 0.2s;
+            width: 100%;
+            max-width: 500px;
+            background-color: #1e2a47;
+            border: 1px solid #202020;
+            border-radius: 10px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+            margin: 0 auto;
+            overflow: hidden;
+        }
+
+        .tela {
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 0s;
+            width: 87%;
+            border: 0;
+            border-radius: 10px 10px 10px 10px;
+            height: 30px;
+            padding: 30px;
+            background-color: #202020;
+            text-align: right;
+            font-size: 1.2rem;
+            color: white;
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .botoes {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 5px;
+            background-color: #1e2a47;
+            border-radius: 0 0 10px 10px;
+            padding: 5px;
+        }
+
+        .botoes div {
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+            color: white;
+            border: 0;
+            border-radius: 50px;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            background-color: #004080;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .botoes div:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        #limpar {
+            background-color: #ff4d4d;
+            grid-column: span 2; /* Para o AC ficar em 2 colunas */
+        }
+
+        #limpar:hover {
+            background-color: #cc0000;
+        }
+
+        .zero {
+            grid-column: span 2;
+        }
+
+        .igual {
+            background-color: #005aa7;
+            grid-column: span 2;
+            padding: 10px;
+            text-align: center;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1.3rem;
+            border-radius: 10px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .igual:hover {
+            background-color: #003d7a;
+            transform: scale(1.05);
+        }
+
+        #btn-back {
+            opacity: 0;
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 0.3s;
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 100px;
+            font-size: 16px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-top: 1rem;
+        }
+
+        #btn-back:hover {
+            background-color: #00c6ff;
+            transform: scale(1.05);
+        }        
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1 class="page-title">Calculadora Normal</h1>
+        <div class="calculadora">
+            <div class="tela" id="tela"></div>
+            <div class="botoes">
+                <div id="limpar">AC</div>
+                <div class="operador">&divide;</div>
+                <div class="operador">&times;</div>
+                <div class="numero">7</div>
+                <div class="numero">8</div>
+                <div class="numero">9</div>
+                <div class="operador">-</div>
+                <div class="numero">4</div>
+                <div class="numero">5</div>
+                <div class="numero">6</div>
+                <div class="operador">+</div>
+                <div class="numero">1</div>
+                <div class="numero">2</div>
+                <div class="numero">3</div>
+                <div class="numero">,</div>
+                <div class="zero numero">0</div>
+                <div class="igual" id="resultado">=</div>
+            </div>
+        </div>
+        <input type="button" id="btn-back" value="Voltar" onclick="window.location.href='index.html';">
+    </div>
+    <script>
+        if (window.devicePixelRatio !== 1) {
+        document.body.style.zoom = (1 / window.devicePixelRatio);
+        }
+        var input = document.getElementById('tela'),
+            numeros = document.querySelectorAll('.numero'),
+            operadores = document.querySelectorAll('.operador'),
+            resultado = document.getElementById('resultado'),
+            limpar = document.getElementById('limpar'),
+            resultadoEstaMostrado = false;
+    
+        // Adicionando evento de clique nos botões dos números
+        for (var i = 0; i < numeros.length; i++) {
+            numeros[i].addEventListener("click", function (e) {
+                var textoNaTela = input.innerHTML;
+                var ultimoChar = textoNaTela[textoNaTela.length - 1];
+    
+                // Permitir apenas uma vírgula por número
+                if (e.target.innerHTML === ",") {
+                    if (resultadoEstaMostrado || textoNaTela === "") {
+                        resultadoEstaMostrado = false;
+                        input.innerHTML = "0,";
+                    } else if (ultimoChar === "," || textoNaTela.includes(",")) {
+                        return;
+                    } else {
+                        input.innerHTML += e.target.innerHTML;
+                    }
+                } else {
+                    if (resultadoEstaMostrado === false) {
+                        input.innerHTML += e.target.innerHTML;
+                    } else {
+                        resultadoEstaMostrado = false;
+                        input.innerHTML = "";
+                        input.innerHTML += e.target.innerHTML;
+                    }
+                }
+            });
+        }
+    
+        // Adicionando evento de clique nos botões dos operadores
+        for (var i = 0; i < operadores.length; i++) {
+            operadores[i].addEventListener("click", function (e) {
+                var textoNaTela = input.innerHTML;
+                var ultimoChar = textoNaTela[textoNaTela.length - 1];
+    
+                if (['+', '-', '×', '÷'].includes(ultimoChar)) {
+                    var newString = textoNaTela.substring(0, textoNaTela.length - 1) + e.target.innerHTML;
+                    input.innerHTML = newString;
+                } else if (textoNaTela.length == 0) {
+                    alert("Coloque um número primeiro");
+                } else {
+                    input.innerHTML += e.target.innerHTML;
+                }
+            });
+        }
+    
+        // Adicionando evento de clique no botão igual
+        resultado.addEventListener("click", function () {
+            var inputString = input.innerHTML.replace(/,/g, '.'); // Substituir a vírgula por ponto
+            var numeros = inputString.split(/\+|\-|\×|\÷/g);
+            var contas = inputString.replace(/[0-9]|\./g, "").split("");
+    
+            // Calculando multiplicações e divisões
+            var divide = contas.indexOf("÷");
+            while (divide != -1) {
+                numeros.splice(divide, 2, numeros[divide] / numeros[divide + 1]);
+                contas.splice(divide, 1);
+                divide = contas.indexOf("÷");
+            }
+    
+            var multiply = contas.indexOf("×");
+            while (multiply != -1) {
+                numeros.splice(multiply, 2, numeros[multiply] * numeros[multiply + 1]);
+                contas.splice(multiply, 1);
+                multiply = contas.indexOf("×");
+            }
+    
+            // Calculando subtrações e adições
+            var subtract = contas.indexOf("-");
+            while (subtract != -1) {
+                numeros.splice(subtract, 2, numeros[subtract] - numeros[subtract + 1]);
+                contas.splice(subtract, 1);
+                subtract = contas.indexOf("-");
+            }
+    
+            var add = contas.indexOf("+");
+            while (add != -1) {
+                numeros.splice(add, 2, parseFloat(numeros[add]) + parseFloat(numeros[add + 1]));
+                contas.splice(add, 1);
+                add = contas.indexOf("+");
+            }
+    
+            input.innerHTML = numeros[0].toString().replace('.', ','); // Converter o ponto de volta para vírgula
+            resultadoEstaMostrado = true;
+        });
+    
+        // Adicionando evento de clique no botão limpar
+        limpar.addEventListener("click", function () {
+            input.innerHTML = "";
+        });
+    </script> 
+</body>
+</html>

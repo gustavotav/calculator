@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="img/imgfundo.png" />
+    <style>
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+      }
+
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-image: url("img/imgfundo.png");
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-attachment: fixed; 
+        font-family: "Arial", sans-serif;
+      }
+
+      #calc {
+        opacity: 0;
+        animation: fadeIn 1s ease-out forwards;
+        background: #1e2a47;
+        border-radius: 20px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+        width: 100%;
+        max-width: 450px;
+        padding: 20px;
+        color: #fff;
+        box-sizing: border-box;
+        text-align: center;
+      }
+
+      #header {
+        margin-bottom: 20px;
+      }
+
+      #header h1 {
+        margin: 0;
+        font-size: 26px;
+        font-weight: 700;
+      }
+
+      .input-group {
+        margin-bottom: 15px;
+        width: 100%;
+      }
+
+      .input-group span {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 16px;
+        text-align: left;
+      }
+
+      .input-group input {
+        width: 100%;
+        padding: 8px;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        color: #333;
+        background: #fff;
+        box-sizing: border-box;
+      }
+
+      #operacoes {
+        display: flex;
+        justify-content: space-between; /* Espaço entre os botões */
+        margin-bottom: 20px;
+        gap: 10px; /* Espaçamento entre os botões */
+      }
+
+      #operacoes button {
+        width: 48%; /* Ajustar a largura dos botões para dividir o espaço */
+        padding: 12px; /* Ajustar padding para manter consistência */
+        border: none;
+        border-radius: 100px;
+        font-size: 16px;
+        background: linear-gradient(to right, #007bff, #007bff);
+        color: white;
+        cursor: pointer;
+        transition: background 0.3s ease, transform 0.2s ease;
+      }
+
+      #operacoes button:hover {
+        background: linear-gradient(to right, #00c6ff, #00c6ff);
+        transform: scale(1.05);
+      }
+
+      #resultado {
+        background: #fff;
+        color: #333;
+        border-radius: 100px;
+        padding: 12px;
+        margin-top: 15px;
+        text-align: center;
+        font-size: 18px;
+      }
+
+      #btn-back {
+        opacity: 0;
+        animation: fadeIn 1s ease-out forwards;
+        display: inline-block;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 100px;
+        font-size: 16px;
+        cursor: pointer;
+        text-decoration: none;
+        margin-top: 1rem;
+        transform: scale(1.05);
+      }
+
+      #btn-back:hover {
+        background-color: #00c6ff;
+        transform: scale(1.05);
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="calc">
+      <div id="header">
+        <h1>Calculadora Binária</h1>
+      </div>
+      <form id="formulario" onsubmit="return false;">
+        <div class="input-group">
+          <span>Primeiro Número Binário:</span>
+          <input
+            type="text"
+            id="num1"
+            placeholder="Digite o primeiro número binário"
+            required
+          />
+        </div>
+        <div class="input-group">
+          <span>Segundo Número Binário:</span>
+          <input
+            type="text"
+            id="num2"
+            placeholder="Digite o segundo número binário"
+            required
+          />
+        </div>
+        <div id="operacoes">
+          <button type="button" onclick="calcular('soma')">Somar</button>
+          <button type="button" onclick="calcular('subtracao')">
+            Subtrair
+          </button>
+        </div>
+        <div id="resultado">
+        </div>
+      </form>
+      <input type="button" id="btn-back" value="Voltar" onclick="window.location.href='index.html';">
+    </div>
+
+    <script>
+      function binarioParaDecimal(bin) {
+        return parseInt(bin, 2);
+      }
+
+      function decimalParaBinario(dec) {
+        return dec.toString(2);
+      }
+
+      function calcular(operacao) {
+        const num1 = document.getElementById("num1").value;
+        const num2 = document.getElementById("num2").value;
+
+        if (!/^[01]+$/.test(num1) || !/^[01]+$/.test(num2)) {
+          document.getElementById("resultado").innerText =
+            "Por favor, insira números binários válidos.";
+          return;
+        }
+
+        const decimal1 = binarioParaDecimal(num1);
+        const decimal2 = binarioParaDecimal(num2);
+        let resultado;
+
+        if (operacao === "soma") {
+          resultado = decimalParaBinario(decimal1 + decimal2);
+        } else if (operacao === "subtracao") {
+          resultado = decimalParaBinario(decimal1 - decimal2);
+        }
+
+        document.getElementById("resultado").innerText =
+          "Resultado: " + resultado;
+      }
+    </script>
+  </body>
+</html>

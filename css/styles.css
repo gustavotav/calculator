@@ -1,0 +1,109 @@
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+body {
+    font-family: 'Roboto Mono', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #002e5d, #005aa7) /* Gradiente azul*/
+}
+
+.container {
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
+    text-align: center;
+    background-color: #1e2a47; /* Cor de fundo escura para a caixa da calculadora */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Sombra  suave */
+    color: #ffffff; /* Cor do texto em branco */
+    max-width: 1200px; /* Limita a largura da caixa */
+    width: 100%;
+}
+
+.page-title {
+    opacity: 0;
+    animation: fadeIn 1s ease-out forwards;
+    color: #ffffff; /* Cor do título em branco */
+    margin-bottom: 10px 0;  /* Reduz a margem superior e inferior do título */
+}
+
+.services-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 1rem; /* Adiciona espaçamento entre as caixas */
+}
+
+.services-box {
+    opacity: 0;
+    animation: fadeIn 0.8s ease-out forwards;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 25rem;
+    width: 100%;
+    max-width: 300px; /* Define uma largura máxima para as caixas */
+    padding: 2rem 1rem;
+    border-radius: 1.2rem;
+    text-align: center;
+    border: solid 0.15rem #005aa7; /* Cor da borda azul */
+    background-color: #1e2a47; /* Cor de fundo escura */
+}
+
+.services-box:hover {
+    border-color: #00c6ff; /* Azul claro ao passar o mouse */
+    transform: scale(1.02); /* Efeito de aumento ao passar o mouse */
+}
+
+.services-box i {
+    font-size: 4.3rem;
+    color: #00c6ff; /* Cor azul clara para os ícones */
+    margin: 0; /* Remove a margem ao redor do ícone */
+}
+
+.services-box h3 {
+    font-size: 1.5rem;
+    color: #ffffff; /* Cor do título em branco */
+    margin-top: 2;
+}
+
+.services-box p {
+    margin: 3; /* Reduz a margem acima e abaixo do texto */
+    letter-spacing: 0.1rem;
+    justify-content: justify;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    color: #ffffff; /* Cor do texto em branco */
+    flex-grow: 5; /* Permite que o parágrafo cresça para ocupar o espaço disponível */
+}
+
+.btn {
+    display: inline-block;
+    background-color: #007bff; /* Azul para o botão */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 0.5rem; /* Reduz a margem acima do botão */
+}
+
+.btn:hover {
+    background-color: #00c6ff; /* Azul escuro para hover */
+    transform: scale(1.05); /* Efeito de aumento ao passar o mouse */
+}
