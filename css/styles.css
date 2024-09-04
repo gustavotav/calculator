@@ -84,7 +84,6 @@ body {
     letter-spacing: 0.1rem;
     justify-content: justify;
     -webkit-box-orient: vertical;
-    overflow: hidden;
     color: #ffffff; /* Cor do texto em branco */
     flex-grow: 5; /* Permite que o parágrafo cresça para ocupar o espaço disponível */
 }
@@ -106,4 +105,53 @@ body {
 .btn:hover {
     background-color: #00c6ff; /* Azul escuro para hover */
     transform: scale(1.05); /* Efeito de aumento ao passar o mouse */
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+
+    html, body {
+        height: 122%;
+    }
+
+    .services-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .services-box {
+        max-width: 90%;
+        max-height: 40%;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-title {
+        font-size: 2rem; /* Ajusta o tamanho do título para telas pequenas */
+        margin-bottom: 1rem;
+    }
+
+    .services-box {
+        padding: 15px; /* Reduz o padding para telas menores */
+        max-width: 100%; /* Ocupa toda a largura da tela */
+        max-height: 40%;
+    }
+
+    .services-box i {
+        font-size: 3rem; /* Reduz o tamanho do ícone para caber melhor */
+    }
+
+    .services-box h3 {
+        font-size: 1.2rem; /* Ajusta o tamanho do título da calculadora */
+    }
+
+    .services-box p {
+        font-size: 0.9rem; /* Ajusta o tamanho do texto */
+        padding: 0px;
+    }
+
+    .btn {
+        font-size: 14px; /* Ajusta o tamanho do botão */
+        padding: 8px 16px; /* Ajusta o padding do botão */
+    }
 }
